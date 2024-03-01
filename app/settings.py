@@ -229,3 +229,8 @@ AZURE_AD_CREDENTIALS = {
     'CLIENT_ID': '4b10663a-043e-42b7-abd5-4b6a2f9db7a7',
     'CLIENT_SECRET': 'xWo8Q~ic_fwxyjrqyTyeKxKvgryTXQRmaiwKIblQ',
 }
+
+
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("text/javascript", ".js", True)

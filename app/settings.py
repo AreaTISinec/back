@@ -230,7 +230,3 @@ AZURE_AD_CREDENTIALS = {
     'CLIENT_SECRET': 'xWo8Q~ic_fwxyjrqyTyeKxKvgryTXQRmaiwKIblQ',
 }
 
-
-import mimetypes
-mimetypes.add_type("text/css", ".css", True)
-mimetypes.add_type("text/javascript", ".js", True)

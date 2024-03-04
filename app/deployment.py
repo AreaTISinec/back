@@ -40,7 +40,7 @@ DATABASES = {
         'NAME': 'sgo1',
         'USER': 'SGOsinec',
         'PASSWORD': 'Sinec2k24',
-        'HOST': 'sgo.mysql.database.azure.com',
+        'HOST': 'bddsgo.mysql.database.azure.com',
         'PORT': '3306',
         'OPTIONS': {
             'ssl':{

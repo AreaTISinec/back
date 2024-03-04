@@ -5,7 +5,7 @@ from .settings import BASE_DIR
 print(f"Configuracion cargada: {os.environ['DJANGO_SETTINGS_MODULE']}")
 
 SECRET_KEY = os.environ['SECRET_KEY']
-print(S)
+print(SECRET_KEY)
 
 ALLOWED_HOSTS = [
     os.environ['WEBSITE_HOSTNAME']

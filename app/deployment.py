@@ -38,7 +38,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bddsgo1',
-        'USER': 'SGOsinec',
+        'USER': 'sgoadmin',
         'PASSWORD': 'Sinec2k24',
         'HOST': 'bddsgo.mysql.database.azure.com',
         'PORT': '3306',

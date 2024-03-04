@@ -37,7 +37,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sgo1',
+        'NAME': 'bddsgo1',
         'USER': 'SGOsinec',
         'PASSWORD': 'Sinec2k24',
         'HOST': 'bddsgo.mysql.database.azure.com',

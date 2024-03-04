@@ -39,7 +39,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bddsgo1',
         'USER': 'sgoadmin',
-        'PASSWORD': 'Sinec2k24',
+        'PASSWORD': 'Sinec2024',
         'HOST': 'bddsgo.mysql.database.azure.com',
         'PORT': '3306',
         'OPTIONS': {

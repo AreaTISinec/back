@@ -19,6 +19,7 @@ urlpatterns = [
     path('api/estados-obra/', include('estado_obras.urls')),
     path('api/tipos-obra/', include('tipo_obras.urls')),
     path('api/empresas/', include('empresas.urls')),
+    path('api/cliente/', include('clientes.urls')),
     path('admin/', admin.site.urls),
     path('api/asignacion/', include('asignaciones.urls')),
     path('api/profile/', include('perfil_usuario.urls'))

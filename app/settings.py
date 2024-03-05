@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'estado_obras',
     'tipo_obras',
     'asignaciones',
+    'clientes'
 ]
 
 MIDDLEWARE = [

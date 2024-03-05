@@ -18,7 +18,8 @@ class HistorialObraListView(ListAPIView):
     
     def get_queryset(self):
         id_obra = self.kwargs['id_obra']
-        return Historial.objects.filter(id_obra=id_obra)
+        queryset = Historial.objects.filter(id_obra=id_obra)
+        return queryset
     
 class HistorialUploadView(APIView):
     permission_classes = (permissions.AllowAny, )

@@ -17,9 +17,8 @@ class HistorialObraListView(ListAPIView):
     serializer_class = HistorialSerializer
     
     def get_queryset(self):
-        
         id_obra = self.kwargs['id_obra']
-        return Historial.objects.filter(id_obra_id=id_obra)
+        return Historial.objects.filter(id_obra=id_obra)
     
 class HistorialUploadView(APIView):
     permission_classes = (permissions.AllowAny, )

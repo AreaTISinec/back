@@ -24,6 +24,7 @@ class ClienteView(APIView):
         serializer = ClienteSerializer(cliente)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
 
 class ClienteUploadView(APIView):
     permission_classes = (permissions.AllowAny, )

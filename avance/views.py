@@ -39,3 +39,12 @@ class EliminarAvance(DestroyAPIView):
         id_obra = self.kwargs["pk"]
         queryset = Avances.objects.filter(id=id_obra) 
         return queryset
+    
+class AvanceListByObra(ListAPIView):
+    permission_classes = (permissions.AllowAny, )
+    serializer_class = AvancesSerializer
+    pagination_class = None
+    def get_queryset(self):
+        id_obra = self.kwargs["id_obra"]
+        queryset = Avances.objects.filter(id_obra = id_obra)
+        return  queryset

@@ -13,8 +13,11 @@ def actualizar_porcentaje_avance(sender, instance, created, **kwargs):
         id_obra = instance.id_obra_id
         ultimo_avance_operacional = Avances.objects.filter(id_obra=id_obra, tipo='real').aggregate(Max('fecha'))
         if ultimo_avance_operacional['fecha__max']:
-            ultimo_porcentaje = Avances.objects.filter(id_obra=id_obra, fecha=ultimo_avance_operacional['fecha__max']).first().porcentaje
-            Obras.objects.filter(id=id_obra).update(porc_avance_operativo=ultimo_porcentaje)
+            ultimo_porcentaje = Avances.objects.filter(id_obra=id_obra, fecha=ultimo_avance_operacional['fecha__max']).last().porcentaje
+            obra = Obras.objects.get(id=id_obra)
+            obra.porc_avance_operativo = ultimo_porcentaje
+            obra.save()
+            # obra.update(porc_avance_operativo=ultimo_porcentaje)
             
         
 
@@ -36,15 +39,13 @@ def eliminar_actualizar_porcentaje_avance(sender, instance, **kwargs):
         
 @receiver(post_save, sender=Avances)
 def actualizar_is_avance(sender, instance, created, **kwargs):
-    if created:  # Solo se activa cuando se crea un nuevo objeto Avance
-        # Obtener la obra asociada a este avance
-        obra = instance.id_obra
+    if created:  
+        obra_id = instance.id_obra_id
         
-        # Verificar si todos los hitos para esta obra tienen un porcentaje de 100%
-        if Avances.objects.filter(id_obra=obra, porcentaje=100).count() == 1:
-            # Actualizar el campo is_avance en la obra a True
-            obra.is_avance = True
-            obra.save()
+        if instance.tipo == 'proyectado' and instance.porcentaje == 100:
+            Obras.objects.filter(id=obra_id).update(is_avance=True)
+        
+    
         
 
 @receiver(post_save, sender=File)
@@ -63,10 +64,11 @@ def actualizar_req_files(sender, instance, created, **kwargs):
         
 @receiver(post_save, sender=Obras)
 def actualizar_monto_por_facturar(sender, instance, **kwargs):
-    print("dentro señal 1")
-    monto_por_facturar = instance.presupuesto - instance.monto_facturado
-    print(monto_por_facturar)
-    Obras.objects.filter(pk=instance.pk).update(monto_por_facturar=monto_por_facturar)
+    if not kwargs.get('raw', False): 
+        print("dentro señal 1")
+        monto_por_facturar = instance.presupuesto - instance.monto_facturado
+        print(monto_por_facturar)
+        Obras.objects.filter(pk=instance.pk).update(monto_por_facturar=monto_por_facturar)
     
     
 @receiver(post_save, sender=Historial)
@@ -76,8 +78,6 @@ def actualizar_facturacion(sender, instance, created, **kwargs):
         id_obra = instance.id_obra_id
         obra = Obras.objects.get(pk=id_obra)
         obra.monto_facturado = obra.monto_facturado + instance.monto
-        print(obra.porc_avance_financiero)
         obra.porc_avance_financiero = (obra.monto_facturado / obra.presupuesto) * 100
-        print(obra.porc_avance_financiero)
         obra.save()
         

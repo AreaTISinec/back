@@ -37,6 +37,9 @@ class Obras(models.Model):
     is_avance = models.BooleanField(default=False)
     
     
+    
+    
+    
     class Meta:
         ordering = ('empresa', 
                     'cliente', 

@@ -63,11 +63,15 @@ def actualizar_req_files(sender, instance, created, **kwargs):
         
         
 @receiver(post_save, sender=Obras)
-def actualizar_monto_por_facturar(sender, instance, **kwargs):
+def actualizar_monto_por_facturar(sender, instance, created, **kwargs):
     print("dentro señal 1")
     monto_por_facturar = instance.presupuesto - instance.monto_facturado
     print(monto_por_facturar)
     Obras.objects.filter(pk=instance.pk).update(monto_por_facturar=monto_por_facturar)
+    
+    if created:
+        Avances.objects.create(id_obra_id=instance.id, fecha=instance.fecha_inicio, porcentaje=0, tipo='real')
+        Avances.objects.create(id_obra_id=instance.id, fecha=instance.fecha_inicio, porcentaje=0, tipo='proyectado')
 
     
 @receiver(post_save, sender=Historial)

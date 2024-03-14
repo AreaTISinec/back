@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Obras
 from .serializers import ObraSerializer
-from rest_framework.response import Response 
+from rest_framework.response import Response
+import pdb
 
 class ObraListView(ListAPIView):
     permission_classes = (permissions.AllowAny, )
@@ -45,9 +46,12 @@ class ObraListSearch(ListAPIView):
 class ObraUploadView(APIView):
     permission_classes = (permissions.AllowAny, )
     
-    def post(self, request, format=None):
+    def post(self, request):
+        print(request.data)
         serializer = ObraSerializer(data=request.data)
+        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    

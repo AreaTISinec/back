@@ -64,12 +64,11 @@ def actualizar_req_files(sender, instance, created, **kwargs):
         
 @receiver(post_save, sender=Obras)
 def actualizar_monto_por_facturar(sender, instance, **kwargs):
-    if not kwargs.get('raw', False): 
-        print("dentro señal 1")
-        monto_por_facturar = instance.presupuesto - instance.monto_facturado
-        print(monto_por_facturar)
-        Obras.objects.filter(pk=instance.pk).update(monto_por_facturar=monto_por_facturar)
-    
+    print("dentro señal 1")
+    monto_por_facturar = instance.presupuesto - instance.monto_facturado
+    print(monto_por_facturar)
+    Obras.objects.filter(pk=instance.pk).update(monto_por_facturar=monto_por_facturar)
+
     
 @receiver(post_save, sender=Historial)
 def actualizar_facturacion(sender, instance, created, **kwargs):

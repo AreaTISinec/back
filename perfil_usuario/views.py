@@ -17,11 +17,24 @@ class UserProfileView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def get(self, request, id_user):
+    def get(self, request, id_profile):
         try:
-            user = UserProfile.objects.get(user_id=id_user)
+            user = UserProfile.objects.get(id=id_profile)
         except UserProfile.DoesNotExist:
             return Response({"error": "El usuario no existe"}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = UserProfileSerializer(user)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class UserProfileByAccount(APIView):
+    permission_classes = (permissions.AllowAny, )
+    
+    def get(self, request, id_acc):
+        try:
+            user = UserProfile.objects.get(user_id=id_acc)
+        except UserProfile.DoesNotExist:
+            return Response({"error": "No existe perfil relacionado a esta cuenta"})
         
         serializer = UserProfileSerializer(user)
         

@@ -9,3 +9,4 @@ class Avances(models.Model):
     fecha = models.DateField()
     porcentaje = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)])
     tipo = models.CharField(max_length=255, null=False)
+    nombre_hito = models.CharField(max_length=255, null=True, default='')

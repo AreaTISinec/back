@@ -5,4 +5,4 @@ urlpatterns = [
     path('', HistorialListView.as_view()),
     path('<int:id_obra>/', HistorialObraListView.as_view()),
     path('upload/', HistorialUploadView.as_view()),
-]
+] 

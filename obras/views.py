@@ -47,9 +47,7 @@ class ObraUploadView(APIView):
     permission_classes = (permissions.AllowAny, )
     
     def post(self, request):
-        print(request.data)
         serializer = ObraSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

@@ -3,6 +3,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 
 from .models import Asignaciones
+from .serializers import AsignacionesSerializer
 
 
 class AsignacionView(APIView):
@@ -19,7 +20,7 @@ class AsignacionView(APIView):
 class AsignacionesListView(ListAPIView):
     permission_classes = (permissions.AllowAny, )
     pagination_class = None
-    
+    serializer_class = AsignacionesSerializer
     def get_queryset(self):
         user_id = self.kwargs['id_user']
         return Asignaciones.objects.filter(id_user=user_id)

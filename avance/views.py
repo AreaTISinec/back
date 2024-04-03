@@ -1,9 +1,11 @@
-from rest_framework.views import APIView
-from rest_framework import	permissions, status
-from rest_framework.generics import ListAPIView, DestroyAPIView
+from rest_framework import permissions, status
+from rest_framework.exceptions import NotFound
+from rest_framework.generics import DestroyAPIView, ListAPIView
 from rest_framework.response import Response
-from .serializers import AvancesSerializer
+from rest_framework.views import APIView
+
 from .models import Avances
+from .serializers import AvancesSerializer
 
 # Create your views here.
 
@@ -37,8 +39,11 @@ class EliminarAvance(DestroyAPIView):
     serializer_class = AvancesSerializer
     def get_queryset(self):
         id_obra = self.kwargs["pk"]
-        queryset = Avances.objects.filter(id=id_obra) 
-        return queryset
+        if id_obra is not None:
+            queryset = Avances.objects.filter(id=id_obra) 
+            return queryset
+        else:
+            raise NotFound('No se encontro el parametro "pk" en la URL')
     
 class AvanceListByObra(ListAPIView):
     permission_classes = (permissions.AllowAny, )
